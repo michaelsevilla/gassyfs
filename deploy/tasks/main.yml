@@ -1,0 +1,30 @@
+# Author: Michael Sevilla
+# Start a GassyFS node
+
+- name: pull dependencies for running gassyfs
+  ignore_errors: True
+  no_log: True
+  docker: 
+    image: michaelsevilla/gassyfs
+    state: present
+
+- name: start gassyfs container
+  docker:
+    image: michaelsevilla/gassyfs
+    name: "{{ container }}"
+    state: restarted
+    detach: yes
+    tty: yes
+    net: host
+    privileged: yes
+    env:
+      SSHD_PORT: "{{ sshd_port }}"
+      AUTHORIZED_KEYS: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      SSH_SERVERS: "localhost localhost"
+    volumes: 
+      - "/dev:/dev"
+      - "/dev/shm:/dev/shm"
+      - "/run/shm:/run/shm"
+      - "{{ code_dir }}/gassyfs:/gassyfs"
+      - "{{ code_dir }}/ceph:/ceph"
+      - "/tmp/etc/ceph:/etc/ceph"

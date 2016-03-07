@@ -1,0 +1,3 @@
+--os.execute("SSH_SERVERS=localhost /usr/local/bin/amudprun -np 2 ./gassy mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o rank0_alloc")
+os.execute("/usr/local/bin/amudprun -np 2 /infra/gassy mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o rank0_alloc")
+

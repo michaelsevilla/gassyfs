@@ -1,4 +1,4 @@
-FROM tutum/ubuntu:trusty
+FROM ivotron/cephdev
 
 RUN echo "===> Install the basics..." && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \
@@ -23,8 +23,11 @@ RUN echo "===> Cleanup apt-get..." && \
     DEBIAN_FRONTEND=noninteractive apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /debian
 
+#RUN echo "====> Make some users" && \
+#    groupadd fuse && \
+#    usermod -a -G fuse root
+
 RUN echo "====> Make some users" && \
-    groupadd fuse && \
     usermod -a -G fuse root
 
 RUN echo "====> Install GassyFS" && \

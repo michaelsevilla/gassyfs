@@ -1,0 +1,5 @@
+container: "gassyfs"
+sshd_port: "2222"
+code_dir:  "/tmp/docker/src"
+script_dir:  "/tmp/docker/src"
+trace_dir: "/tmp/docker/trace"

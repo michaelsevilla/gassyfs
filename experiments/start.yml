@@ -1,0 +1,15 @@
+# Author: Michael Sevilla
+# Bring up GassyFS
+
+- name: cleanup old experiments
+  hosts: all
+  roles: [{role: cleanup, containers: "gassyfs"}]
+
+- name: Start Ceph using the "small.sh" startup script (roles/ceph/deploy/files/ceph-scripts/small.sh)
+  hosts: Workers
+  roles: [{role: ceph/deploy, startup: "small.sh"}]
+
+- name: start gassyfs and run an expermient
+  hosts: Workers
+  roles: [{role: gassyfs/deploy, sshd_port: 2223}]
+  
