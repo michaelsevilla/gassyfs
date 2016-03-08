@@ -17,9 +17,11 @@ int main(int argc, char **argv)
     std::cerr << "USAGE: <file> <cmd> [policy]" << std::endl;
     std::cerr << std::endl;
     std::cerr << "  where cmd can be:" << std::endl;
-    std::cerr << "    print_string  print a string inside GassyFS" << std::endl;
-    std::cerr << "    setlua_atime  set the policy for setting the atime" << std::endl;
-    std::cerr << "    getlua_atime  print the policy for setting the atime" << std::endl;
+    std::cerr << "    print_string   print a string inside GassyFS" << std::endl;
+    std::cerr << "    setlua_atime   set the policy for setting the atime" << std::endl;
+    std::cerr << "    getlua_atime   print the policy for setting the atime" << std::endl;
+    std::cerr << "    setlua_backend set the policy for getting data from the backend" << std::endl;
+    std::cerr << "    getlua_backend  print the policy for getting data from the backend" << std::endl;
     std::cerr << "  where policy is the Lua file to inject" << std::endl;
     exit(1);
   }
@@ -51,6 +53,10 @@ int main(int argc, char **argv)
     op = GASSY_IOC_GETLUA_ATIME;
   else if (!strcmp(cmd, "setlua_atime"))
     op = GASSY_IOC_SETLUA_ATIME;
+  else if (!strcmp(cmd, "getlua_backend"))
+    op = GASSY_IOC_GETLUA_BACKEND;
+  else if (!strcmp(cmd, "setlua_backend"))
+    op = GASSY_IOC_SETLUA_BACKEND;
   else {
     std::cerr << "unknown command" << std::endl;
     exit(1);

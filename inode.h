@@ -31,6 +31,11 @@ class Inode {
   bool setlua_atime(std::string policy);
   std::string getlua_atime();
 
+  bool setlua_backend(std::string policy);
+  std::string getlua_backend();
+  bool is_inmemory() const;
+  void set_inmemory(bool state);
+
   int alloc_node;
 
  private:
@@ -38,6 +43,8 @@ class Inode {
   fuse_ino_t ino_;
   GassyFs *fs_;
   std::string lua_atime;
+  std::string lua_backend;
+  bool inmemory;
 };
 
 // TODO: specialize for regular file

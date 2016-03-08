@@ -202,6 +202,19 @@ int GassyFs::Lookup(fuse_ino_t parent_ino, const std::string& name, struct stat 
 
   *st = in->i_st;
 
+  // pull the file if its on a different backend
+  if (!in->is_inmemory()) {
+    int ret = lua_policy(in->getlua_backend());
+    if (ret < 0)
+      return -ENOENT;
+  }
+
+  // pull the file (this can be configured; maybe we don't want to pull the file until we read it, also specif if delete it)
+
+  // shove the file through gassyfs to spray it
+  // Write(file)
+ 
+
   return 0;
 }
 
@@ -319,6 +332,14 @@ ssize_t GassyFs::Read(FileHandle *fh, off_t offset,
   else
     in->i_st.st_atime = ret;
 
+  //if(in->type == STORED_IN_BACKEND) {
+  //  int ret = lua_policy(in->getlua_backend_read());
+  //} else if (in->type != STORED_IN_MEMORY) {
+  //  std::cerr << "WARN: Unknown storage type: " << in->type << std::endl;
+  //  std::cerr.flush();
+  //  return 0;
+  //}
+       
   // reads that start past eof return nothing
   if (offset >= in->i_st.st_size || size == 0)
     return 0;
@@ -1301,6 +1322,18 @@ bool GassyFs::SetAtime(fuse_ino_t ino, const std::string& s)
 void GassyFs::GetAtime(fuse_ino_t ino)
 {
   auto in = ino_refs_.inode(ino);
-  in->getlua_atime();
-  std::cout.flush();
+  printf("atime policy:\n===\n%s===\n", in->getlua_atime().c_str());
+}
+
+bool GassyFs::SetBackend(fuse_ino_t ino, const std::string& s)
+{
+  auto in = ino_refs_.inode(ino);
+  in->set_inmemory(false);
+  return in->setlua_backend(s);
+}
+
+void GassyFs::GetBackend(fuse_ino_t ino)
+{
+  auto in = ino_refs_.inode(ino);
+  printf("backend policy:\n===\n%s===\n", in->getlua_backend().c_str());
 }
