@@ -85,3 +85,20 @@ Heap size:             163838
 write interface: write_buf
 fuse: missing mountpoint parameter
 
+# Using Ethernet
+
+curl -O https://gasnet.lbl.gov/GASNet-1.26.0.tar.gz
+tar xzvf GASNet-1.26.0.tar.gz
+cd GASNet-1.26.0
+
+./configure --prefix=/usr --enable-udp --enable-ibv --disable-mpi --enable-par
+--enable-segment-everything --disable-aligned-segments --disable-pshm
+--with-segment-mmap-max=160GB --disable-ibv-xrc
+make
+make install
+
+git clone https://github.com/noahdesu/gassyfs.git
+cd gassyfs
+GASNET=/usr make
+
+
