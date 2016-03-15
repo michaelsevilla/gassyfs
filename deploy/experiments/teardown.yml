@@ -1,0 +1,3 @@
+- {command: "docker exec gassyfs umount /gassyfs/mount", ignore_errors: True, no_log: True}
+- {shell:   "docker exec gassyfs rm -r /gassyfs/mount/*", ignore_errors: True, no_log: True}
+- shell:    "docker exec gassyfs /bin/bash -c \"echo 3 > /proc/sys/vm/drop_caches\""

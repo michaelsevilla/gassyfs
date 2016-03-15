@@ -1,0 +1,416 @@
+2016-03-10 01:33:50,906 p=26785 u=root |  PLAY [========== TmpFS experiments ==========] *********************************
+2016-03-10 01:33:50,929 p=26785 u=root |  TASK [include] *****************************************************************
+2016-03-10 01:33:50,965 p=26785 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 01:33:50,974 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:51,380 p=26785 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 01:33:51,381 p=26785 u=root |  ...ignoring
+2016-03-10 01:33:51,383 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:51,751 p=26785 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 01:33:51,751 p=26785 u=root |  ...ignoring
+2016-03-10 01:33:51,754 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:53,662 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:33:53,675 p=26785 u=root |  TASK [include] *****************************************************************
+2016-03-10 01:33:53,718 p=26785 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 01:33:53,731 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:54,257 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:33:54,259 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:54,558 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:33:54,561 p=26785 u=root |  TASK [debug] *******************************************************************
+2016-03-10 01:33:54,602 p=26785 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)", 
+        "tmpfs on /gassyfs/mount type tmpfs (rw,relatime,size=41943040k)"
+    ]
+}
+2016-03-10 01:33:54,604 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:33:54,919 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:33:54,921 p=26785 u=root |  TASK [debug] *******************************************************************
+2016-03-10 01:33:54,963 p=26785 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  234G  291G  45% /gassyfs", 
+        "tmpfs            40G     0   40G   0% /gassyfs/mount"
+    ]
+}
+2016-03-10 01:33:54,965 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:34:06,284 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:34:06,287 p=26785 u=root |  TASK [TIME to copy data into mount] ********************************************
+2016-03-10 01:34:06,333 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m10.977s", 
+        "user\t0m0.016s", 
+        "sys\t0m8.196s"
+    ]
+}
+2016-03-10 01:34:06,336 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:43:31,059 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:43:31,072 p=26785 u=root |  TASK [TIME to run job] *********************************************************
+2016-03-10 01:43:31,193 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "[bam_sort_core] merging from 96 files...", 
+        "", 
+        "real\t9m24.276s", 
+        "user\t53m13.760s", 
+        "sys\t2m37.448s"
+    ]
+}
+2016-03-10 01:43:31,195 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:43:57,413 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:43:57,417 p=26785 u=root |  TASK [TIME to checkpoint data] *************************************************
+2016-03-10 01:43:57,470 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m24.531s", 
+        "user\t0m0.048s", 
+        "sys\t0m12.212s", 
+        "", 
+        "real\t0m1.250s", 
+        "user\t0m0.008s", 
+        "sys\t0m0.000s", 
+        "", 
+        "real\t0m0.008s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s"
+    ]
+}
+2016-03-10 01:43:57,471 p=26785 u=root |  TASK [include] *****************************************************************
+2016-03-10 01:43:57,518 p=26785 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 01:43:57,543 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:00,110 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:00,113 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:00,498 p=26785 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 01:44:00,499 p=26785 u=root |  ...ignoring
+2016-03-10 01:44:00,500 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:02,674 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:02,697 p=26785 u=root |  PLAY [========== GassyFS Local experiments ==========] *************************
+2016-03-10 01:44:02,707 p=26785 u=root |  TASK [include] *****************************************************************
+2016-03-10 01:44:02,750 p=26785 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 01:44:02,759 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:03,639 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:03,641 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:04,013 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:04,015 p=26785 u=root |  TASK [debug] *******************************************************************
+2016-03-10 01:44:04,056 p=26785 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)"
+    ]
+}
+2016-03-10 01:44:04,058 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:04,398 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:04,399 p=26785 u=root |  TASK [debug] *******************************************************************
+2016-03-10 01:44:04,449 p=26785 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  241G  284G  46% /gassyfs"
+    ]
+}
+2016-03-10 01:44:04,451 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:44:43,209 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:44:43,212 p=26785 u=root |  TASK [TIME to copy data into mount] ********************************************
+2016-03-10 01:44:43,257 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m38.409s", 
+        "user\t0m0.048s", 
+        "sys\t0m11.980s"
+    ]
+}
+2016-03-10 01:44:43,259 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:54:45,500 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:54:45,503 p=26785 u=root |  TASK [TIME to run job] *********************************************************
+2016-03-10 01:54:45,555 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "[bam_sort_core] merging from 96 files...", 
+        "", 
+        "real\t10m1.908s", 
+        "user\t54m11.468s", 
+        "sys\t3m55.828s"
+    ]
+}
+2016-03-10 01:54:45,557 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:55:09,840 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:55:09,843 p=26785 u=root |  TASK [TIME to checkpoint data] *************************************************
+2016-03-10 01:55:09,881 p=26785 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m22.682s", 
+        "user\t0m0.036s", 
+        "sys\t0m11.416s", 
+        "", 
+        "real\t0m1.276s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.016s", 
+        "", 
+        "real\t0m0.007s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s"
+    ]
+}
+2016-03-10 01:55:09,883 p=26785 u=root |  TASK [include] *****************************************************************
+2016-03-10 01:55:09,913 p=26785 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 01:55:09,928 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:55:10,310 p=26785 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 01:55:10,311 p=26785 u=root |  ...ignoring
+2016-03-10 01:55:10,312 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:55:10,658 p=26785 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 01:55:10,658 p=26785 u=root |  ...ignoring
+2016-03-10 01:55:10,660 p=26785 u=root |  TASK [command] *****************************************************************
+2016-03-10 01:55:14,729 p=26785 u=root |  changed: [localhost]
+2016-03-10 01:55:14,738 p=26785 u=root |  PLAY RECAP *********************************************************************
+2016-03-10 01:55:14,738 p=26785 u=root |  localhost                  : ok=36   changed=16   unreachable=0    failed=0   
+2016-03-10 02:15:32,884 p=27569 u=root |  PLAY [========== TmpFS experiments ==========] *********************************
+2016-03-10 02:15:32,906 p=27569 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:15:32,940 p=27569 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 02:15:32,949 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:33,349 p=27569 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:15:33,349 p=27569 u=root |  ...ignoring
+2016-03-10 02:15:33,352 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:33,691 p=27569 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:15:33,692 p=27569 u=root |  ...ignoring
+2016-03-10 02:15:33,695 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:34,114 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:15:34,119 p=27569 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:15:34,159 p=27569 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 02:15:34,174 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:34,634 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:15:34,636 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:35,026 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:15:35,029 p=27569 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:15:35,085 p=27569 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)", 
+        "tmpfs on /gassyfs/mount type tmpfs (rw,relatime,size=41943040k)"
+    ]
+}
+2016-03-10 02:15:35,088 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:35,421 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:15:35,422 p=27569 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:15:35,467 p=27569 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  260G  265G  50% /gassyfs", 
+        "tmpfs            40G     0   40G   0% /gassyfs/mount"
+    ]
+}
+2016-03-10 02:15:35,470 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:15:46,864 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:15:46,869 p=27569 u=root |  TASK [TIME to copy data into mount] ********************************************
+2016-03-10 02:15:46,911 p=27569 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m11.012s", 
+        "user\t0m0.024s", 
+        "sys\t0m8.532s"
+    ]
+}
+2016-03-10 02:15:46,912 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:28:43,356 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:28:43,358 p=27569 u=root |  TASK [TIME to run job] *********************************************************
+2016-03-10 02:28:43,508 p=27569 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t12m56.064s", 
+        "user\t41m2.040s", 
+        "sys\t7m50.468s"
+    ]
+}
+2016-03-10 02:28:43,510 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:28:45,154 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:28:45,159 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:15,237 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:15,239 p=27569 u=root |  TASK [TIME to checkpoint data] *************************************************
+2016-03-10 02:29:15,297 p=27569 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m28.887s", 
+        "user\t0m0.056s", 
+        "sys\t0m12.296s", 
+        "", 
+        "real\t0m0.659s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s", 
+        "", 
+        "real\t0m0.009s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s"
+    ]
+}
+2016-03-10 02:29:15,298 p=27569 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:29:15,344 p=27569 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 02:29:15,369 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:17,740 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:17,743 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:18,257 p=27569 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:29:18,258 p=27569 u=root |  ...ignoring
+2016-03-10 02:29:18,259 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:20,135 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:20,149 p=27569 u=root |  PLAY [========== GassyFS Local experiments ==========] *************************
+2016-03-10 02:29:20,155 p=27569 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:29:20,181 p=27569 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 02:29:20,187 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:20,846 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:20,848 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:21,228 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:21,230 p=27569 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:29:21,270 p=27569 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)"
+    ]
+}
+2016-03-10 02:29:21,271 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:21,563 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:21,565 p=27569 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:29:21,604 p=27569 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  260G  265G  50% /gassyfs"
+    ]
+}
+2016-03-10 02:29:21,606 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:29:57,969 p=27569 u=root |  changed: [localhost]
+2016-03-10 02:29:57,971 p=27569 u=root |  TASK [TIME to copy data into mount] ********************************************
+2016-03-10 02:29:58,034 p=27569 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m36.052s", 
+        "user\t0m0.056s", 
+        "sys\t0m11.716s"
+    ]
+}
+2016-03-10 02:29:58,035 p=27569 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:31:12,303 p=27569 u=root |   [ERROR]: User interrupted execution
+
+2016-03-10 02:32:06,381 p=28274 u=root |  PLAY [========== GassyFS Local experiments ==========] *************************
+2016-03-10 02:32:06,399 p=28274 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:32:06,424 p=28274 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 02:32:06,430 p=28274 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:32:06,853 p=28274 u=root |  changed: [localhost]
+2016-03-10 02:32:06,855 p=28274 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:32:07,250 p=28274 u=root |  changed: [localhost]
+2016-03-10 02:32:07,252 p=28274 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:32:07,286 p=28274 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)"
+    ]
+}
+2016-03-10 02:32:07,288 p=28274 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:32:07,756 p=28274 u=root |  changed: [localhost]
+2016-03-10 02:32:07,757 p=28274 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:32:07,790 p=28274 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  260G  265G  50% /gassyfs"
+    ]
+}
+2016-03-10 02:32:07,792 p=28274 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:32:12,928 p=28274 u=root |   [ERROR]: User interrupted execution
+
+2016-03-10 02:35:36,238 p=28452 u=root |  PLAY [========== GassyFS Local experiments ==========] *************************
+2016-03-10 02:35:36,255 p=28452 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:35:36,289 p=28452 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 02:35:36,297 p=28452 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:37,656 p=28452 u=root |  changed: [localhost]
+2016-03-10 02:35:37,659 p=28452 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:38,058 p=28452 u=root |  changed: [localhost]
+2016-03-10 02:35:38,060 p=28452 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:35:38,102 p=28452 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)", 
+        "gassy on /gassyfs/mount type fuse (rw,nosuid,nodev,relatime,user_id=0,group_id=0,allow_other)"
+    ]
+}
+2016-03-10 02:35:38,103 p=28452 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:38,396 p=28452 u=root |  changed: [localhost]
+2016-03-10 02:35:38,398 p=28452 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:35:38,440 p=28452 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  250G  274G  48% /gassyfs", 
+        "gassy            40G     0   40G   0% /gassyfs/mount"
+    ]
+}
+2016-03-10 02:35:38,441 p=28452 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:45,152 p=28452 u=root |   [ERROR]: User interrupted execution
+
+2016-03-10 02:35:56,826 p=28589 u=root |  PLAY [========== GassyFS Local experiments ==========] *************************
+2016-03-10 02:35:56,843 p=28589 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:35:56,874 p=28589 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 02:35:56,882 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:58,195 p=28589 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:35:58,195 p=28589 u=root |  ...ignoring
+2016-03-10 02:35:58,197 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:35:58,502 p=28589 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:35:58,502 p=28589 u=root |  ...ignoring
+2016-03-10 02:35:58,504 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:36:00,796 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:36:00,803 p=28589 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:36:00,850 p=28589 u=root |  included: /infra/roles/gassyfs/deploy/experiments/setup.yml for localhost
+2016-03-10 02:36:00,866 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:36:01,398 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:36:01,400 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:36:01,784 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:36:01,788 p=28589 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:36:01,844 p=28589 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1 on /gassyfs type ext4 (rw,relatime,errors=remount-ro,stripe=512,data=ordered)", 
+        "gassy on /gassyfs/mount type fuse (rw,nosuid,nodev,relatime,user_id=0,group_id=0,allow_other)"
+    ]
+}
+2016-03-10 02:36:01,847 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:36:02,208 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:36:02,210 p=28589 u=root |  TASK [debug] *******************************************************************
+2016-03-10 02:36:02,261 p=28589 u=root |  ok: [localhost] => {
+    "result.stdout_lines": [
+        "/dev/md0p1      552G  241G  284G  46% /gassyfs", 
+        "gassy            40G  9.6G   30G  25% /gassyfs/mount"
+    ]
+}
+2016-03-10 02:36:02,264 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:36:24,562 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:36:24,565 p=28589 u=root |  TASK [TIME to copy data into mount] ********************************************
+2016-03-10 02:36:24,616 p=28589 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m21.937s", 
+        "user\t0m0.076s", 
+        "sys\t0m12.272s"
+    ]
+}
+2016-03-10 02:36:24,618 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:03,150 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:56:03,151 p=28589 u=root |  TASK [TIME to run job] *********************************************************
+2016-03-10 02:56:03,204 p=28589 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t19m38.244s", 
+        "user\t40m55.956s", 
+        "sys\t7m27.752s"
+    ]
+}
+2016-03-10 02:56:03,206 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:04,818 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:56:04,825 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:32,044 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:56:32,045 p=28589 u=root |  TASK [TIME to checkpoint data] *************************************************
+2016-03-10 02:56:32,115 p=28589 u=root |  ok: [localhost] => {
+    "result.stderr.split('\n')": [
+        "", 
+        "real\t0m25.849s", 
+        "user\t0m0.048s", 
+        "sys\t0m12.452s", 
+        "", 
+        "real\t0m0.834s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s", 
+        "", 
+        "real\t0m0.009s", 
+        "user\t0m0.000s", 
+        "sys\t0m0.000s"
+    ]
+}
+2016-03-10 02:56:32,117 p=28589 u=root |  TASK [include] *****************************************************************
+2016-03-10 02:56:32,153 p=28589 u=root |  included: /infra/roles/gassyfs/deploy/experiments/teardown.yml for localhost
+2016-03-10 02:56:32,173 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:33,932 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:56:33,934 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:34,231 p=28589 u=root |  fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2016-03-10 02:56:34,231 p=28589 u=root |  ...ignoring
+2016-03-10 02:56:34,233 p=28589 u=root |  TASK [command] *****************************************************************
+2016-03-10 02:56:35,863 p=28589 u=root |  changed: [localhost]
+2016-03-10 02:56:35,867 p=28589 u=root |  PLAY RECAP *********************************************************************
+2016-03-10 02:56:35,867 p=28589 u=root |  localhost                  : ok=21   changed=10   unreachable=0    failed=0   

@@ -1,0 +1,10 @@
+---
+- name: run the gassyfs docker image
+  docker:
+    image: "{{ gassyfs_docker_username }}/{{ gassyfs_docker_imagename }}"
+    name: "{{ container_name_master }}"
+    net: "host"
+    state: "running"
+    env: "DAEMON=MASTER,SRC_DIR={{ src_directory }},SSHD_PORT={{ master_sshd_port }},AUTHORIZED_KEYS=\"{{ authkey }}\""
+    volumes: "{{ src_directory }}/master:{{ src_directory }},{{ ssh_tmpdir }}:/root/.ssh,/dev/shm:/dev/shm,/run/shm:/run/shm"
+    privileged: True

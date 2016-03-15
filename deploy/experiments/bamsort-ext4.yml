@@ -1,0 +1,10 @@
+- name: ========== Ext4 experiments ==========
+  hosts: localhost
+  vars:
+    - mount:    ls
+  tasks:
+    - include:  ./teardown.yml
+    - include:  ./scale-threads.yml
+    - include:  ./scale-memory.yml
+    
+

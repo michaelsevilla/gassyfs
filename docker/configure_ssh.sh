@@ -1,8 +1,11 @@
 #!/bin/bash
+set -x
 
-if [ ! -f /.root_pw_set ]; then
-    /set_root_pw.sh
+if [ ! -d ~/.ssh ]; then
+  mkdir ~/.ssh
 fi
+echo "Host *" >> ~/.ssh/config
+echo "    StrictHostKeyChecking no" >> ~/.ssh/config
 
 if [ "${AUTHORIZED_KEYS}" != "**None**" ]; then
     echo "=> Found authorized keys"
@@ -27,12 +30,19 @@ fi
 if [ -z "$SSHD_PORT" ]; then
   SSHD_PORT=22
 fi
-sed -i "s/Port.*/Port ${SSHD_PORT}/" /etc/ssh/sshd_config
+echo "    Port ${SSHD_PORT}" >> /etc/ssh/sshd_config
 echo "    Port ${SSHD_PORT}" >> /etc/ssh/ssh_config
 
 echo "===> Add passwordless login for myself"
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ''
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-
-echo "===> You shouold be able to ssh to port=$SSHD_PORT"
-exec /usr/sbin/sshd -D
+ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ''
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ''
+if [ "$DAEMON" == "MASTER" ]; then
+  echo "    Port $SSHD_PORT" >> /etc/ssh/ssh_config
+  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+elif [ "$DAEMON" == "WORKER" ]; then
+  ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ''
+else
+  echo "=> ERROR: unknown daemon: $DAEMON"
+  exit 1
+fi
