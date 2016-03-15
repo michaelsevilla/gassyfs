@@ -1,0 +1,30 @@
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 64 -m1024M /gassyfs/mount/input.bam /gassyfs/mount/output\""
+  register: result
+- name:     TIME to run sort job
+  debug:    var=result.stderr.split('\n')
+
+- shell:    "docker exec gassyfs /bin/bash -c \"time samtools bamshuf /gassyfs/mount/input-small.bam /gassyfs/mount/shuffled\""
+  register: result
+- name:     TIME to run bamshuffle job
+  debug:    var=result.stderr.split('\n')
+
+- shell:    "docker exec gassyfs /bin/bash -c \"time samtools mpileup /gassyfs/mount/input-small.bam -g > /gassyfs/mount/output.bcf\""
+  register: result
+- name:     TIME to run mpileup job
+  debug:    var=result.stderr.split('\n')
+
+- shell:    "docker exec gassyfs /bin/bash -c \"time samtools merge -@ 64 /gassyfs/mount/merged.bam /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- name:     TIME to run mpileup job
+  debug:    var=result.stderr.split('\n')
+
+- shell:    "docker exec gassyfs ls -al /gassyfs/mount"
+  register: result
+- name:     size of the files
+  debug:    var=result.stdout_lines
+- shell:    "docker exec gassyfs /bin/bash -c \"echo 3 > /proc/sys/vm/drop_caches\""
+- command:  "docker exec gassyfs /bin/bash -c \"time cp /gassyfs/mount/output.bam /root/blah0; time cp /gassyfs/mount/output.bcf /root/blah1; time cp /gassyfs/mount/shuffled.bam /root/blah2; time cp /gassyfs/mount/merged.bam /root/blah3; time sync; time sync\""
+  register: result
+- name:     TIME to checkpoint 3 files and 2 syncs
+  debug:    var=result.stderr.split('\n')
+

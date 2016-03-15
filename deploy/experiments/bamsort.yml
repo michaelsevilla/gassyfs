@@ -1,0 +1,26 @@
+- name: ========== TmpFS experiments ==========
+  hosts: localhost
+  vars:
+    - mount:     docker exec gassyfs mount -t tmpfs -o size=20g tmpfs /gassyfs/mount/
+  tasks:
+    - include:  ./teardown.yml
+    - include:  ./scale-threads.yml
+    - include:  ./scale-memory.yml
+
+#- name: ========== GassyFS Local experiments ==========
+#  hosts: localhost
+#  vars:
+#    - mount:    docker exec gassyfs gassyfs/gassy /gassyfs/mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o local_mode -o heap_size=20480 &
+#  tasks:
+#    - include:  ./scale-threads.yml
+#    - include:  ./scale-memory.yml
+#
+#- name: ========== GassyFS GASNET experiments ==========
+#  hosts: localhost
+#  vars:
+#    - mount:    docker exec gassyfs /bin/bash -c "SSH_SERVERS=\"localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost\" /usr/local/bin/amudprun -np 10 /gassyfs/gassy /gassyfs/mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o rank0_alloc" &
+#  tasks:
+#    - include:  ./scale-threads.yml
+#    - include:  ./scale-memory.yml
+    
+

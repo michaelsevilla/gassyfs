@@ -1,0 +1,55 @@
+#- name: ========== GassyFS Pseudo-distributed experiments ==========
+#  hosts: localhost
+#  vars:
+#    - mount:    docker exec gassyfs /bin/bash -c "SSH_SERVERS=\"localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost localhost\" /usr/local/bin/amudprun -np 20 /gassyfs/gassy /gassyfs/mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o rank0_alloc -o big_writes" &
+#  tasks:
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+#
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+#
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+#
+#- name: ========== TmpFS experiments ==========
+#  hosts: localhost
+#  vars:
+#    - mount:     docker exec gassyfs mount -t tmpfs -o size=100g tmpfs /gassyfs/mount/
+#  tasks:
+#    - include:  ./teardown.yml
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+#
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+#
+#    - include:  ./setup.yml
+#    - include:  ./compute.yml
+#    - include:  ./teardown.yml
+    
+- name: ========== GassyFS Local experiments ==========
+  hosts: localhost
+  vars:
+    - mount:    docker exec gassyfs /gassyfs/gassy /gassyfs/mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o local_mode -o heap_size=102400 -o big_writes &
+  tasks:
+    - include:  ./teardown.yml
+
+    - include:  ./setup.yml
+    - include:  ./compute.yml
+    - include:  ./teardown.yml
+
+    - include:  ./setup.yml
+    - include:  ./compute.yml
+    - include:  ./teardown.yml
+
+    - include:  ./setup.yml
+    - include:  ./compute.yml
+    - include:  ./teardown.yml
+
+

@@ -1,0 +1,21 @@
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m1M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m128M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m256M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m512M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m1024M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+

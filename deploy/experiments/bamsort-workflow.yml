@@ -1,0 +1,33 @@
+- name: ========== TmpFS experiments ==========
+  hosts: localhost
+  vars:
+    - mount:     docker exec gassyfs mount -t tmpfs -o size=40g tmpfs /gassyfs/mount/
+  tasks:
+    - include:  ./teardown.yml
+
+    - include:  ./setup.yml
+    - command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 16 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output\""
+      register: result
+    - name:     TIME to run job
+      debug:    var=result.stderr.split('\n')
+    - command:  "docker exec gassyfs /bin/bash -c \"time cp /gassyfs/mount/output.bam /root/blah; time sync; time sync\""
+      register: result
+    - name:     TIME to checkpoint data
+      debug:    var=result.stderr.split('\n')
+    - include:  ./teardown.yml
+    
+- name: ========== GassyFS Local experiments ==========
+  hosts: localhost
+  vars:
+    - mount:    docker exec gassyfs gassyfs/gassy /gassyfs/mount -o allow_other -o fsname=gassy -o atomic_o_trunc -o local_mode -o heap_size=402960 -o big_writes &
+  tasks:
+    - include:  ./setup.yml
+    - command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 16 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output\""
+      register: result
+    - name:     TIME to run job
+      debug:    var=result.stderr.split('\n')
+    - command:  "docker exec gassyfs /bin/bash -c \"time cp /gassyfs/mount/output.bam /root/blah; time sync; time sync\""
+      register: result
+    - name:     TIME to checkpoint data
+      debug:    var=result.stderr.split('\n')
+    - include:  ./teardown.yml

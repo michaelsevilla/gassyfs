@@ -1,0 +1,33 @@
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 1 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 2 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 3 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 4 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 5 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 6 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 7 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+- include:  ./setup.yml
+- command:  "docker exec gassyfs /bin/bash -c \"time samtools sort -@ 8 -m640M /gassyfs/mount/input.bam /gassyfs/mount/output.bam\""
+  register: result
+- include:  ./teardown.yml
+

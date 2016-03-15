@@ -1,0 +1,18 @@
+- shell:    "{{ mount }}"
+- shell:    docker exec gassyfs mount | grep gassy
+  register: result
+- debug:    var=result.stdout_lines
+- shell:    docker exec gassyfs df -h | grep gassy
+  register: result
+  ignore_errors: True # Remove this?
+- debug:    var=result.stdout_lines
+#http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeCaltechRnaSeq/
+- command:  "docker exec gassyfs /bin/bash -c \"time cp /gassyfs/wgEncodeUwRepliSeqK562G1AlnRep1.bam /gassyfs/mount/input-small.bam\""
+  register: result
+- name:     TIME to copy small data into mount
+  debug:    var=result.stderr.split('\n')
+- command:  "docker exec gassyfs /bin/bash -c \"time cp /gassyfs/wgEncodeCaltechRnaSeqGm12878R2x75Il200AlignsRep2V2.bam /gassyfs/mount/input.bam\""
+  register: result
+- name:     TIME to copy data into mount
+  debug:    var=result.stderr.split('\n')
+ 

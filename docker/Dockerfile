@@ -1,33 +1,47 @@
-FROM tutum/ubuntu:trusty
+FROM centos:7.1.1503
 
 RUN echo "===> Install the basics..." && \
-    DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+    yum remove -y iputils systemd && \
+    yum update -y && \
+    yum install -y \
+      autoconf \
+      bzip2 \
       curl \
-      git \
-      wget \
-      libfuse-dev \
-      build-essential \
-      libacl1-dev \
-      lua5.2 \
-      liblua5.2-dev \
-      samtools \
-      libexpat1-dev \
-      libcurl4-openssl-dev \
+      fuse \
+      fuse-devel \
       gettext \
-      pkg-config && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq \
-       --reinstall linux-image-4.2.0-25-generic
+      gcc \
+      gcc-c++ \
+      git \
+      libibverbs-utils \
+      libibverbs-devel \
+      libipathverbs \
+      make \
+      ncurses-devel \
+      openssh-client \
+      openssh-server \
+      readline-devel \
+      sudo \
+      tar \
+      wget \
+      zlib-devel && \
+    yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support" && \
+    yum clean -y all
+ 
 
-RUN echo "===> Cleanup apt-get..." && \
-    DEBIAN_FRONTEND=noninteractive apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /debian
+RUN echo "===> Install samtools..." && \
+    wget https://github.com/samtools/samtools/releases/download/1.3/samtools-1.3.tar.bz2 && \
+    tar xjf samtools-1.3.tar.bz2 && \
+    cd samtools-1.3 && \
+    make && \
+    make install
 
-RUN echo "====> Make some users" && \
+RUN echo "===> Make users and add tty for sudo..." && \
     groupadd fuse && \
-    usermod -a -G fuse root
+    usermod -a -G fuse root && \
+    sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
 
-RUN echo "====> Install GassyFS" && \
+RUN echo "===> Install GassyFS" && \
     wget https://raw.githubusercontent.com/noahdesu/gassyfs/master/ci/install-gasnet.sh && \
     chmod 755 install-gasnet.sh && \
     ./install-gasnet.sh
@@ -40,8 +54,9 @@ RUN sed -i "s/UsePAM.*/UsePAM yes/" /etc/ssh/sshd_config && \
     echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:" > /etc/environment && \
     echo "alias sudo='sudo env PATH=\$PATH'" >> /etc/environment && \
     sed -i "s/Defaults.*env_reset//" /etc/sudoers && \
-    sed -i "s/Defaults.*secure_path.*//" /etc/sudoers 
+    sed -i "s/Defaults.*secure_path.*//" /etc/sudoers
 
-ADD run.sh /run.sh
-RUN chmod 755 /run.sh
-ENTRYPOINT ["/run.sh"]
+ADD entrypoint.sh /
+ADD configure_ssh.sh /
+RUN chmod 755 /entrypoint.sh /configure_ssh.sh
+ENTRYPOINT ["/entrypoint.sh"]

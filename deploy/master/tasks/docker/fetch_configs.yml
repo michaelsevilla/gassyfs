@@ -1,0 +1,20 @@
+---
+- name: remove old keys
+  file: path={{ ssh_tmpdir }} state=absent
+
+- name: create a new directory for ssh keys
+  file: path={{ ssh_tmpdir }} state=directory
+
+- name: set ssh key paths
+  set_fact:
+    ssh_keys:
+      - id_rsa
+      - id_rsa.pub
+      - authorized_keys
+
+- name: try to fetch ssh keys
+  copy: 
+    src: "{{ ssh_dir }}/{{ item }}"
+    dest: "{{ ssh_tmpdir }}/{{ item }}"
+    mode: 0600
+  with_items: ssh_keys
