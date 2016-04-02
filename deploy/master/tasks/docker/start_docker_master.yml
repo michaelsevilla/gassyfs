@@ -5,6 +5,6 @@
     name: "{{ container_name_master }}"
     net: "host"
     state: "running"
-    env: "DAEMON=MASTER,SRC_DIR={{ src_directory }},SSHD_PORT={{ master_sshd_port }},AUTHORIZED_KEYS=\"{{ authkey }}\""
+    env: "DAEMON=MASTER,SSH_SERVERS=\"{{ ssh_servers }}\",SRC_DIR={{ src_directory }},SSH_PORT={{ worker_sshd_port }},SSHD_PORT={{ master_sshd_port }},AUTHORIZED_KEYS=\"{{ authkey }}\""
     volumes: "{{ src_directory }}/master:{{ src_directory }},{{ ssh_tmpdir }}:/root/.ssh,/dev/shm:/dev/shm,/run/shm:/run/shm"
     privileged: True

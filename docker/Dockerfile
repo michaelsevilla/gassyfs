@@ -20,11 +20,13 @@ RUN echo "===> Install the basics..." && \
       ncurses-devel \
       openssh-client \
       openssh-server \
+      readline-devel \
       sudo \
       tar \
       wget \
       zlib-devel && \
-    yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support"
+    yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support" && \
+    yum clean -y all
 
 RUN echo "===> Install samtools..." && \
     wget https://github.com/samtools/samtools/releases/download/1.3/samtools-1.3.tar.bz2 && \
@@ -33,25 +35,23 @@ RUN echo "===> Install samtools..." && \
     make && \
     make install
 
-#RUN yum install -y lua5.2 
-#RUN yum install -y liblua5.2-devel
-#  pkg-config && \
-#    DEBIAN_FRONTEND=noninteractive apt-get install -yq \
-#       --reinstall linux-image-4.2.0-25-generic
-
-#RUN echo "===> Cleanup apt-get..." && \
-#    DEBIAN_FRONTEND=noninteractive apt-get clean && \
-#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /debian
-
 RUN echo "===> Make users and add tty for sudo..." && \
     groupadd fuse && \
     usermod -a -G fuse root && \
     sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
 
-RUN echo "===> Install GassyFS" && \
-    wget https://raw.githubusercontent.com/noahdesu/gassyfs/master/ci/install-gasnet.sh && \
-    chmod 755 install-gasnet.sh && \
-    ./install-gasnet.sh
+RUN echo "Setup limits for infiniband" && \
+    echo "* soft memlock unlimited" >> /etc/security/limits.conf && \
+    echo "* hard memlock unlimited" >> /etc/security/limits.conf
+
+RUN echo "===> Install GassNET for infiniband..." && \
+    cd /tmp && \
+    curl -O https://gasnet.lbl.gov/GASNet-1.26.0.tar.gz && \
+    tar xzvf GASNet-1.26.0.tar.gz && \
+    cd GASNet-1.26.0 && \
+    ./configure --prefix=/usr --enable-udp --enable-ibv --disable-mpi --enable-par --enable-segment-fast --disable-aligned-segments --disable-pshm --with-segment-mmap-max=160GB && \
+    make && \
+    sudo make install
 
 # * modify sshd conf
 # * workaround for the way ubuntu deals with env for sudo
@@ -62,15 +62,6 @@ RUN sed -i "s/UsePAM.*/UsePAM yes/" /etc/ssh/sshd_config && \
     echo "alias sudo='sudo env PATH=\$PATH'" >> /etc/environment && \
     sed -i "s/Defaults.*env_reset//" /etc/sudoers && \
     sed -i "s/Defaults.*secure_path.*//" /etc/sudoers
-
-RUN echo "===> Install Lua5.2..." && \
-    cd /tmp && \
-    wget http://www.lua.org/ftp/lua-5.2.0.tar.gz && \
-    tar xzvf lua-5.2.0.tar.gz
-RUN yum -y install readline-devel
-RUN cd /tmp/lua-5.2.0 && \
-    make linux && \
-    make install
 
 ADD entrypoint.sh /
 ADD configure_ssh.sh /

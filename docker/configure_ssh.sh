@@ -31,7 +31,7 @@ if [ -z "$SSHD_PORT" ]; then
   SSHD_PORT=22
 fi
 echo "    Port ${SSHD_PORT}" >> /etc/ssh/sshd_config
-echo "    Port ${SSHD_PORT}" >> /etc/ssh/ssh_config
+echo "    Port ${SSH_PORT}" >> /etc/ssh/ssh_config
 
 echo "===> Add passwordless login for myself"
 ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
