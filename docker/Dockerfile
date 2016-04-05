@@ -1,7 +1,9 @@
-FROM centos:7.1.1503
+FROM centos:centos7
+
+RUN yum update -y
 
 RUN echo "===> Install the basics..." && \
-    yum remove -y iputils systemd && \
+    yum remove -y iputils && \
     yum update -y && \
     yum install -y \
       autoconf \
@@ -27,7 +29,6 @@ RUN echo "===> Install the basics..." && \
       zlib-devel && \
     yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support" && \
     yum clean -y all
- 
 
 RUN echo "===> Install samtools..." && \
     wget https://github.com/samtools/samtools/releases/download/1.3/samtools-1.3.tar.bz2 && \
@@ -41,10 +42,27 @@ RUN echo "===> Make users and add tty for sudo..." && \
     usermod -a -G fuse root && \
     sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
 
-RUN echo "===> Install GassyFS" && \
-    wget https://raw.githubusercontent.com/noahdesu/gassyfs/master/ci/install-gasnet.sh && \
-    chmod 755 install-gasnet.sh && \
-    ./install-gasnet.sh
+RUN echo "Setup limits for infiniband" && \
+    echo "* soft memlock unlimited" >> /etc/security/limits.conf && \
+    echo "* hard memlock unlimited" >> /etc/security/limits.conf
+
+RUN echo "===> Install GassNET for infiniband..." && \
+    cd /tmp && \
+    curl -O https://gasnet.lbl.gov/GASNet-1.26.0.tar.gz && \
+    tar xzvf GASNet-1.26.0.tar.gz && \
+    cd GASNet-1.26.0 && \
+    ./configure \
+      --prefix=/usr \
+      --enable-udp \
+      --enable-ibv \
+      --disable-mpi \
+      --enable-par \
+      --enable-segment-fast \
+      --disable-aligned-segments \
+      --disable-pshm \
+      --with-segment-mmap-max=160GB && \
+    make -j4 && \
+    sudo make install
 
 # * modify sshd conf
 # * workaround for the way ubuntu deals with env for sudo
