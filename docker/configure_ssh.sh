@@ -1,9 +1,8 @@
 #!/bin/bash
 set -x
-set -e
 
 echo "Host *" >> /etc/ssh/ssh_config
-echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_confg
+echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
 if [ "${AUTHORIZED_KEYS}" != "**None**" ]; then
     echo "=> Found authorized keys"

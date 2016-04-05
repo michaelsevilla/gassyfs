@@ -13,6 +13,14 @@ if [ "$INFINIBAND" == 1 ]; then
   export EXEC="gasnetrun_ibv -v -np $N"
 fi
 
+echo "=> Re-compile GasNET (if necessary)..."
+if [ ! -z "$GASNET_COMPILE_ARGS" ]; then
+  cd /tmp/GASNet-1.26.0
+  ./configure $GASNET_COMPILE_ARGS
+  make -j2
+  sudo make install
+fi
+
 echo "=> Get the code (if we don't already have it)"
 if [ -z "$SRC_DIR" ]; then
   SRC_DIR=/tmp/gassyfs
