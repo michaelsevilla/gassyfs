@@ -14,7 +14,7 @@ if [ "$INFINIBAND" == 1 ]; then
 fi
 
 echo "=> Re-compile GasNET (if necessary)..."
-if [ -z "$GASNET_COMPILE_ARGS" ]; then
+if [ ! -z "$GASNET_COMPILE_ARGS" ]; then
   cd /tmp/GASNet-1.26.0
   ./configure $GASNET_COMPILE_ARGS
   make -j2
