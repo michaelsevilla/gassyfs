@@ -14,27 +14,28 @@ if [ "$INFINIBAND" == 1 ]; then
 fi
 
 echo "=> Re-compile GasNET (if necessary)..."
+cd /tmp/GASNet-1.26.0
 if [ ! -z "$GASNET_COMPILE_ARGS" ]; then
-  cd /tmp/GASNet-1.26.0
   ./configure $GASNET_COMPILE_ARGS
   make -j2
-  sudo make install
 fi
+sudo make install
 
 echo "=> Get the code (if we don't already have it)"
 if [ -z "$SRC_DIR" ]; then
   SRC_DIR=/tmp/gassyfs
 fi
 if [ ! -d "$SRC_DIR/.git" ]; then
-  git clone --recursive https://github.com/noahdesu/gassyfs.git $SRC_DIR
-  if [ "$INFINIBAND" == 1 ]; then
+  git clone --recursive $GIT_URL $SRC_DIR
+  if [ ! -z "$GIT_COMMIT" ]; then
     cd $SRC_DIR
-    git checkout -b infiniband remotes/origin/infiniband
+    git reset --hard $GIT_COMMIT
   fi
 fi
 
 echo "=> Build code without Lua..."
 cd $SRC_DIR
+make clean
 make
 
 echo "=> Setup fuse..."

@@ -7,14 +7,19 @@ RUN echo "===> Install the basics..." && \
     yum update -y && \
     yum install -y \
       autoconf \
+      bc \
+      binutils-devel \
       bzip2 \
-      curl \
+      curl-devel \
+      expat-devel \
+      elfutils-libelf-devel \
       fuse \
       fuse-devel \
       gettext \
       gcc \
       gcc-c++ \
       git \
+      hmaccalc \
       libibverbs-utils \
       libibverbs-devel \
       libipathverbs \
@@ -22,13 +27,15 @@ RUN echo "===> Install the basics..." && \
       ncurses-devel \
       openssh-client \
       openssh-server \
+      openssl-devel \
+      perl-devel \
       readline-devel \
       sudo \
       tar \
       wget \
       zlib-devel && \
-    yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support" && \
-    yum clean -y all
+    yum groupinstall -y --setopt=group_package_types=optional "Infiniband Support" "Development Tools" && \
+    yum clean -y all || true
 
 RUN echo "===> Install samtools..." && \
     wget https://github.com/samtools/samtools/releases/download/1.3/samtools-1.3.tar.bz2 && \
