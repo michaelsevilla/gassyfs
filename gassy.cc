@@ -487,9 +487,9 @@ int main(int argc, char *argv[])
   struct gassyfs_opts opts;
 
   // option defaults
-  opts.rank0_alloc = 0;
+  opts.rank0_alloc = 1;
   opts.local_mode  = 0;
-  opts.heap_size   = 512;
+  opts.heap_size   = 163840;
 
   struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
